@@ -1,0 +1,78 @@
+It looks like the execution environment couldn’t run Streamlit directly, but I can give you a **ready-to-use Streamlit code snippet** that you can run locally to display your CSV file in a nice UI.
+
+***
+
+### ✅ **Streamlit App to Display CSV in Tabular Format**
+
+Create a file called `app.py`:
+
+```python
+import streamlit as st
+import pandas as pd
+
+# Page config
+st.set_page_config(page_title="CSV Viewer", layout="wide")
+
+# Title
+st.title("📊 CSV File Viewer")
+
+# Upload CSV
+uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+
+if uploaded_file is not None:
+    # Read CSV
+    df = pd.read_csv(uploaded_file)
+
+    # Show basic info
+    st.subheader("Data Preview")
+    st.write(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
+
+    # Display table with styling
+    st.dataframe(df.style.highlight_max(axis=0), use_container_width=True)
+
+    # Download button
+    csv = df.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label="Download CSV",
+        data=csv,
+        file_name="data.csv",
+        mime="text/csv"
+    )
+else:
+    st.info("Please upload a CSV file to view its contents.")
+```
+
+***
+
+### ✅ **How to Run**
+
+1.  Install Streamlit and Pandas:
+    ```bash
+    pip install streamlit pandas
+    ```
+2.  Run the app:
+    ```bash
+    streamlit run app.py
+    ```
+3.  Open the URL shown in the terminal (usually `http://localhost:8501`).
+
+***
+
+### ✅ Features:
+
+*   Upload any CSV file.
+*   Displays row/column count.
+*   Styled table with `highlight_max`.
+*   Download button for the processed CSV.
+*   Responsive layout.
+
+***
+
+👉 Do you want me to **add advanced UI features** like:
+
+*   **Search and filter rows**
+*   **Column sorting**
+*   **Charts based on the CSV data**
+*   **Dark mode toggle**?
+
+Or keep it simple for now?
